@@ -41,3 +41,4 @@ def colors(palette):
     else:
         result = {palette: all_colors.get(palette)}
     return jsonify(result)
+
