@@ -2,4 +2,4 @@
 
 python3 -m venv venv
 source venv/bin/activate
-pip install flask flasgger flask-blueprint
+pip install -r requirements.txt

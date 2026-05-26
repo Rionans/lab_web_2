@@ -1,13 +1,21 @@
+# Подключение библиотек для работы с Flask и Blueprint
 from flask import Flask, jsonify, Blueprint
+# Подключение библиотеки для создания автоматической документации API
 from flasgger import Swagger
+# Подключение части нашего веб-сервиса с использованием Blueprint
 from sitepart.sitepart import sitepart
 
+# Приложение Flask
 app = Flask(__name__)
+
+# Инициализация для нашего API сервиса документации Swagger
 swagger = Swagger(app)
 
-# Основной Blueprint
+# Создаем основной Blueprint сайта
 main = Blueprint("/", __name__, template_folder='templates', static_folder='static')
 
+# объявляем декоратор для метода http get
+# Информация, которая будет выдаваться по URL/info/something
 @main.route('/info/<about>/')
 def info(about):
     """Example endpoint returning about info
@@ -17,7 +25,7 @@ def info(about):
       - name: about
         in: path
         type: string
-        enum: ['all', 'version', 'author', 'year']
+        enum: ['all','version', 'author', 'year']
         required: true
         default: all
     definitions:
@@ -40,8 +48,9 @@ def info(about):
     result = {about: all_info[about]}
     return jsonify(result)
 
+# Регистрируем основной Blueprint и Blueprint другой части сайта
 app.register_blueprint(main, url_prefix='/')
 app.register_blueprint(sitepart, url_prefix='/sitepart')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# Запуск приложения Flask в режиме debug
+app.run(debug=True)

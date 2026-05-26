@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify
 
+# Создаем Blueprint для отдельной части веб API
 sitepart = Blueprint("sitepart", __name__, template_folder='templates', static_folder='static')
 
+# Возвращает цветовую палитру по имени палитры (rgb, cmyk ...)
 @sitepart.route('/colors/<palette>/')
 def colors(palette):
     """Example endpoint returning a list of colors by palette
@@ -36,9 +38,10 @@ def colors(palette):
         'cmyk': ['cian', 'magenta', 'yellow', 'black'],
         'rgb': ['red', 'green', 'blue']
     }
+
     if palette == 'all':
         result = all_colors
     else:
         result = {palette: all_colors.get(palette)}
-    return jsonify(result)
 
+    return jsonify(result)
