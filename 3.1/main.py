@@ -53,4 +53,4 @@ app.register_blueprint(main, url_prefix='/')
 app.register_blueprint(sitepart, url_prefix='/sitepart')
 
 # Запуск приложения Flask в режиме debug
-app.run(debug=True)
+app.run(host='0.0.0.0', port=5000, debug=True)
